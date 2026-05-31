@@ -55,13 +55,13 @@ public class VehicleDetailController {
     }
 
     @PostMapping("/{vehicleId}/status")
-    public ResponseEntity<Void> changeVehicleStatus(
+    public ResponseEntity<VehicleDto> changeVehicleStatus(
         @PathVariable String inventoryId,
         @PathVariable String vehicleId,
         @RequestBody ChangeVehicleStatusRequest request
     ) {
-        vehicleDetailService.changeVehicleStatus(inventoryId, vehicleId, request);
-        return ResponseEntity.ok().build();
+        VehicleDto vehicleDto = vehicleDetailService.changeVehicleStatus(inventoryId, vehicleId, request);
+        return ResponseEntity.ok(vehicleDto);
     }
     
 }

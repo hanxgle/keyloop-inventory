@@ -16,4 +16,6 @@ public class ManagerDto {
     private String username;
 
     private String managerName;
+
+    private String inventoryId;
 }

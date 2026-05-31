@@ -31,6 +31,7 @@ public class ManagerDetailService {
             .id(managerId)
             .username(manager.getUsername())
             .managerName(manager.getName())
+            .inventoryId(manager.getInventory().getId())
             .build();
             
         return new GetManagerResponse(managerDto);
@@ -46,7 +47,8 @@ public class ManagerDetailService {
 
         Manager newManager = new Manager();
         newManager.setUsername(username);
-        newManager.setPassword(passwordEncoder.encode(password)); 
+        newManager.setPassword(passwordEncoder.encode(password));
+        newManager.setName(request.getName()); 
 
         Inventory newInventory = new Inventory();
         newInventory.setDealershipName(request.getDealershipName());

@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,7 +36,7 @@ public class Inventory {
     @Column(name = "location")
     private String location;
 
-    @Column(unique = true, nullable = false)
+    @PrimaryKeyJoinColumn
     @OneToOne(mappedBy = "inventory")
     private Manager manager;
 

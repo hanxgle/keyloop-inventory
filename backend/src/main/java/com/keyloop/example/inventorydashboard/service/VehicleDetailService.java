@@ -73,7 +73,7 @@ public class VehicleDetailService {
         return new GetVehicleResponse(vehicleDto);
     }
 
-    public void changeVehicleStatus(String inventoryId, String vehicleId, ChangeVehicleStatusRequest request) {
+    public VehicleDto changeVehicleStatus(String inventoryId, String vehicleId, ChangeVehicleStatusRequest request) {
         String status = request.getStatus();
         Vehicle vehicle = getAndValidateVehicle(inventoryId, vehicleId);
 
@@ -83,6 +83,8 @@ public class VehicleDetailService {
         
         vehicle.setStatus(VehicleStatus.valueOf(status.toUpperCase()));
         vehicleRepository.save(vehicle);
+
+        return convertVehicleToVehicleDto(vehicle);
     }
 
     private Vehicle getAndValidateVehicle(String inventoryId, String vehicleId) {

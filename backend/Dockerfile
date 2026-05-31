@@ -1,10 +1,11 @@
 FROM gradle:8.5-jdk17 AS build
-WORKDIR /app
-COPY . .
-RUN ./gradlew build -x test
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN ./gradlew build -x test --no-daemon
 
-FROM eclipse-temurin:17-jre
-WORKDIR /app
-COPY --from=build /app/build/libs/*.jar app.jar
+FROM eclipse-temurin:17-jre-jammy
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+COPY --from=build /home/gradle/src/build/libs/*.jar app.jar
+
+ENV TZ=UTC
+ENTRYPOINT ["java", "-Duser.timezone=UTC", "-jar", "/app.jar"]

@@ -3,11 +3,16 @@ spring:
   application:
     name: inventorydashboard
 
+  docker:
+    compose:
+      enabled: false
+      file: "../docker-compose.yml"
+
   # Database (PostgreSQL - Docker)
   datasource:
-    url: jdbc:postgresql://postgres:5432/media
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://db:5432/inventory
+    username: inventory_user
+    password: inventory_pass
     driver-class-name: org.postgresql.Driver
 
   # JPA / Hibernate

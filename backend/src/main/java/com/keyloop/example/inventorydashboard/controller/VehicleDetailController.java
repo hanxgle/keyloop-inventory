@@ -13,12 +13,17 @@ import com.keyloop.example.inventorydashboard.dto.GetVehicleResponse;
 import com.keyloop.example.inventorydashboard.dto.VehicleDto;
 import com.keyloop.example.inventorydashboard.dto.VehicleFilterRequest;
 import com.keyloop.example.inventorydashboard.service.VehicleDetailService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
 @RequestMapping("/inventorydashboard/inventories/{inventoryId}/vehicles")
+@Tag(name = "Vehicle Detail Controller", description = "Endpoints for adding new vehicle, retrieving vehicle(s), or change vehicle's status ")
 public class VehicleDetailController {
 
     private final VehicleDetailService vehicleDetailService;
@@ -28,6 +33,7 @@ public class VehicleDetailController {
     }
 
     @PostMapping("/new")
+    @Operation(summary = "Add a new vehicle to inventory", description = "Returns the new vehicle's information")
     public ResponseEntity<VehicleDto> addVehicleToInventory(
         @PathVariable String inventoryId, 
         @RequestBody AddVehicleRequest request
@@ -37,6 +43,7 @@ public class VehicleDetailController {
     }
 
     @GetMapping
+    @Operation(summary = "Get and filter a paginated list of vehicles from inventory", description = "Returns the list of vehicles")
     public ResponseEntity<GetListOfVehiclesResponse> getListOfVehiclesFromInventoryId(
         @PathVariable String inventoryId,
         @RequestBody VehicleFilterRequest request
@@ -46,6 +53,7 @@ public class VehicleDetailController {
     }
 
     @GetMapping("/{vehicleId}")
+    @Operation(summary = "Get one vehicle from inventory ID and vehicle ID", description = "Returns the vehicle")
     public ResponseEntity<GetVehicleResponse> getVehicleFromInventoryIdAndVehicleId(
         @PathVariable String inventoryId,
         @PathVariable String vehicleId
@@ -55,6 +63,7 @@ public class VehicleDetailController {
     }
 
     @PostMapping("/{vehicleId}/status")
+    @Operation(summary = "Change the status of an aging vehicle in inventory", description = "Returns the updated vehicle's information")
     public ResponseEntity<VehicleDto> changeVehicleStatus(
         @PathVariable String inventoryId,
         @PathVariable String vehicleId,

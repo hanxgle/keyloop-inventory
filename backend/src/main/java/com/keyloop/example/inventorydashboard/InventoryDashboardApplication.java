@@ -1,13 +1,13 @@
-package com.keyloop.example.demo;
+package com.keyloop.example.inventorydashboard;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class InventoryDashboardApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(InventoryDashboardApplication.class, args);
 	}
 
 }

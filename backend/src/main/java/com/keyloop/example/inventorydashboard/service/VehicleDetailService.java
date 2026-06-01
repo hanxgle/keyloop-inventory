@@ -76,10 +76,6 @@ public class VehicleDetailService {
     public VehicleDto changeVehicleStatus(String inventoryId, String vehicleId, ChangeVehicleStatusRequest request) {
         String status = request.getStatus();
         Vehicle vehicle = getAndValidateVehicle(inventoryId, vehicleId);
-
-        if (!vehicle.isAgingStock()) {
-            throw new IllegalArgumentException(String.format("Vehicle with ID %s is not an aging stock.", vehicleId));
-        }
         
         vehicle.setStatus(VehicleStatus.valueOf(status.toUpperCase()));
         vehicleRepository.save(vehicle);

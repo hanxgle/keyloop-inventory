@@ -16,5 +16,20 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/inventory
       SPRING_DATASOURCE_USERNAME: inventory_user
       SPRING_DATASOURCE_PASSWORD: inventory_pass
+      
+      # --- OpenTelemetry Configuration (Fixed Format) ---
+      OTEL_SERVICE_NAME: backend-service
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_METRICS_EXPORTER: none
+      OTEL_LOGS_EXPORTER: none
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
     depends_on:
       - db
+      - jaeger
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "16686:16686" # Open http://localhost:16686 in your browser for the UI
+      - "4317:4317"   # The gRPC receiver port where the backend sends OTLP data
+      - "4318:4318"   # 2. Open up the HTTP port on the Jaeger container

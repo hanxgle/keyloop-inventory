@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    # Force Spring to use the in-memory H2 database
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  
+  jpa:
+    # Allow Hibernate to automatically generate tables from your entities
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        # Optional: set to true if you want to see the SQL statements in your console logs
+        "[show_sql]": false
+        "[format_sql]": true

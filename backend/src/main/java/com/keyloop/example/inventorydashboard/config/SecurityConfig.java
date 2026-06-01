@@ -32,6 +32,7 @@ public class SecurityConfig {
                     "/swagger-resources/**",
                     "/configuration/ui",
                     "/configuration/security",
+                    "/error",
                     "/favicon.ico"
                 ).permitAll()
                 .anyRequest().authenticated()

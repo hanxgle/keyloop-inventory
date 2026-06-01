@@ -50,9 +50,8 @@ public class ManagerDetailService {
         newInventory.setLocation(request.getLocation());
 
         newManager.setInventory(newInventory);
-        managerRepository.save(newManager);
 
-        return convertManagerToManagerDto(newManager);
+        return convertManagerToManagerDto(managerRepository.save(newManager));
     }
 
     private ManagerDto convertManagerToManagerDto(Manager manager) {

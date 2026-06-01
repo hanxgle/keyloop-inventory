@@ -45,9 +45,7 @@ public class VehicleDetailService {
         newVehicle.setModel(request.getModel());
         newVehicle.setModelYear(request.getModelYear());
 
-        vehicleRepository.save(newVehicle);
-
-        return convertVehicleToVehicleDto(newVehicle);
+        return convertVehicleToVehicleDto(vehicleRepository.saveAndFlush(newVehicle));
     }
 
     public GetListOfVehiclesResponse getListOfVehiclesFromInventoryId(
@@ -78,9 +76,8 @@ public class VehicleDetailService {
         Vehicle vehicle = getAndValidateVehicle(inventoryId, vehicleId);
         
         vehicle.setStatus(VehicleStatus.valueOf(status.toUpperCase()));
-        vehicleRepository.save(vehicle);
 
-        return convertVehicleToVehicleDto(vehicle);
+        return convertVehicleToVehicleDto(vehicleRepository.save(vehicle));
     }
 
     private Vehicle getAndValidateVehicle(String inventoryId, String vehicleId) {

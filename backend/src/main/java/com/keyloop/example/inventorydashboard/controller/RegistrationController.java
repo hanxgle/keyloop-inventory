@@ -27,11 +27,7 @@ public class RegistrationController {
     @PostMapping("/register")
     @Operation(summary = "Register a new manager with a new empty inventory", description = "Returns the registered manager's ID")
     public ResponseEntity<ManagerDto> registerUser(@RequestBody RegistrationRequest request) {
-        try {
-            ManagerDto managerDto = managerDetailService.registerNewManager(request);
-            return ResponseEntity.ok(managerDto);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
-        }
+        ManagerDto managerDto = managerDetailService.registerNewManager(request);
+        return ResponseEntity.ok(managerDto);
     }
 }

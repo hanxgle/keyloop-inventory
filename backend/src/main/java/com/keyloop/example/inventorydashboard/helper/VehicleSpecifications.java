@@ -25,7 +25,7 @@ public class VehicleSpecifications {
                 predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("model")), "%" + model.toLowerCase() + "%"));
             }
 
-            // 4. Age Filter (maxAgeInDays = 30 means cars added within the last 30 days)
+            // Age Filter (maxAgeInDays = 30 means cars added within the last 30 days)
             if (maxAgeInDays != null) {
                 LocalDate cutoffDate = LocalDate.now().minusDays(maxAgeInDays);
                 predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("dateAdded"), cutoffDate));

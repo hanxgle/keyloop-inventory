@@ -27,17 +27,12 @@ public class ManagerDetailService {
         Manager manager = managerRepository.findById(managerId).orElseThrow(
             () -> new EntityNotFoundException(String.format("Manager ID %s does not exist.", managerId)));
 
-        ManagerDto managerDto = ManagerDto.builder()
-            .id(managerId)
-            .username(manager.getUsername())
-            .managerName(manager.getName())
-            .inventoryId(manager.getInventory().getId())
-            .build();
+        ManagerDto managerDto = convertManagerToManagerDto(manager);
             
         return new GetManagerResponse(managerDto);
     }
 
-    public String registerNewManager(RegistrationRequest request) {
+    public ManagerDto registerNewManager(RegistrationRequest request) {
         String username = request.getUsername();
         String password = request.getPassword();
 
@@ -57,6 +52,15 @@ public class ManagerDetailService {
         newManager.setInventory(newInventory);
         managerRepository.save(newManager);
 
-        return newManager.getId();
+        return convertManagerToManagerDto(newManager);
+    }
+
+    private ManagerDto convertManagerToManagerDto(Manager manager) {
+        return ManagerDto.builder()
+            .id(manager.getId())
+            .username(manager.getUsername())
+            .managerName(manager.getName())
+            .inventoryId(manager.getInventory().getId())
+            .build();
     }
 }

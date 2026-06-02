@@ -1,0 +1,334 @@
+{
+	"info": {
+		"_postman_id": "a89c7dec-9786-4de3-8f9a-5b7625de0fb4",
+		"name": "Keyloop Inventory Dashboard",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32329869"
+	},
+	"item": [
+		{
+			"name": "Get manager from manager ID",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "testpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "testusername",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/inventorydashboard/managers/{{managerId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"inventorydashboard",
+						"managers",
+						"{{managerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get inventory from manager ID and inventory ID",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "testpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "testusername",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/inventorydashboard/managers/{{managerId}}/inventories/{{inventoryId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"inventorydashboard",
+						"managers",
+						"{{managerId}}",
+						"inventories",
+						"{{inventoryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get list of vehicles from inventory ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "testpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "testusername",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"page\": 0,\r\n    \"size\": 20,\r\n    \"make\": \"Test Make\",\r\n    \"model\": \"Test Model\",\r\n    \"maxAgeInDays\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/inventorydashboard/inventories/{{inventoryId}}/vehicles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"inventorydashboard",
+						"inventories",
+						"{{inventoryId}}",
+						"vehicles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get vehicle from inventory ID and vehicle ID",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "testpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "testusername",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/inventorydashboard/inventories/{{inventoryId}}/vehicles/{{vehicleId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"inventorydashboard",
+						"inventories",
+						"{{inventoryId}}",
+						"vehicles",
+						"{{vehicleId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change vehicle status",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "testpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "testusername",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"AVAILABLE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/inventorydashboard/inventories/{{inventoryId}}/vehicles/{{vehicleId}}/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"inventorydashboard",
+						"inventories",
+						"{{inventoryId}}",
+						"vehicles",
+						"{{vehicleId}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new vehicle to inventory",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "testpassword",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "testusername",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"make\": \"Test Make\",\r\n    \"model\": \"Test Model\",\r\n    \"modelYear\": \"2026\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/inventorydashboard/inventories/{{inventoryId}}/vehicles/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"inventorydashboard",
+						"inventories",
+						"{{inventoryId}}",
+						"vehicles",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register new manager",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"testusername\",\r\n    \"password\": \"testpassword\",\r\n    \"name\": \"Test Manager\",\r\n    \"dealershipName\": \"Test Dealership\",\r\n    \"location\": \"123 Test Street, Test Ward, Test City, Viet Nam\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/inventorydashboard/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"inventorydashboard",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "managerId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "inventoryId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "vehicleId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

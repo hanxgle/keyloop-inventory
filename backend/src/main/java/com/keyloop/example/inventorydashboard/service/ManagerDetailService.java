@@ -2,6 +2,7 @@ package com.keyloop.example.inventorydashboard.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.keyloop.example.inventorydashboard.dto.GetManagerResponse;
 import com.keyloop.example.inventorydashboard.dto.ManagerDto;
@@ -11,8 +12,10 @@ import com.keyloop.example.inventorydashboard.entity.Manager;
 import com.keyloop.example.inventorydashboard.repository.ManagerRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.constraints.NotBlank;
 
 @Service
+@Validated
 public class ManagerDetailService {
 
     private final ManagerRepository managerRepository;
@@ -23,7 +26,7 @@ public class ManagerDetailService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public GetManagerResponse getManagerFromManagerId(String managerId) {
+    public GetManagerResponse getManagerFromManagerId(@NotBlank String managerId) {
         Manager manager = managerRepository.findById(managerId).orElseThrow(
             () -> new EntityNotFoundException(String.format("Manager ID %s does not exist.", managerId)));
 

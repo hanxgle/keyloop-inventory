@@ -40,13 +40,13 @@ public class Vehicle {
     @JoinColumn(name = "inventory_id", nullable = false)
     private Inventory inventory;
 
-    @Column(name = "make")
+    @Column(nullable = false)
     private String make;
 
-    @Column(name = "model")
+    @Column(nullable = false)
     private String model;
 
-    @Column(name = "model_year")
+    @Column(nullable = false)
     private String modelYear;
 
     @CreationTimestamp

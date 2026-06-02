@@ -1,6 +1,7 @@
 package com.keyloop.example.inventorydashboard.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +13,10 @@ import com.keyloop.example.inventorydashboard.service.ManagerDetailService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @RestController
+@Validated
 @RequestMapping("/inventorydashboard")
 @Tag(name = "Registration Controller", description = "Endpoints for registering a new manager")
 public class RegistrationController {
@@ -26,7 +29,7 @@ public class RegistrationController {
 
     @PostMapping("/register")
     @Operation(summary = "Register a new manager with a new empty inventory", description = "Returns the registered manager's ID")
-    public ResponseEntity<ManagerDto> registerUser(@RequestBody RegistrationRequest request) {
+    public ResponseEntity<ManagerDto> registerUser(@Valid @RequestBody RegistrationRequest request) {
         ManagerDto managerDto = managerDetailService.registerNewManager(request);
         return ResponseEntity.ok(managerDto);
     }

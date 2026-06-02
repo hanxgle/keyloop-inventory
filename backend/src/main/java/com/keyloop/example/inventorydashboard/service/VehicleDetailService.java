@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.keyloop.example.inventorydashboard.dto.AddVehicleRequest;
 import com.keyloop.example.inventorydashboard.dto.ChangeVehicleStatusRequest;
@@ -22,9 +23,11 @@ import com.keyloop.example.inventorydashboard.repository.VehicleRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotBlank;
 
 @Service
 @Transactional
+@Validated
 public class VehicleDetailService {
 
     private VehicleRepository vehicleRepository;
@@ -35,7 +38,7 @@ public class VehicleDetailService {
         this.inventoryRepository = inventoryRepository;
     }
 
-    public VehicleDto addVehicleToInventory(String inventoryId, AddVehicleRequest request) {
+    public VehicleDto addVehicleToInventory(@NotBlank String inventoryId, AddVehicleRequest request) {
         Inventory inventory = inventoryRepository.findById(inventoryId).orElseThrow(
             () -> new EntityNotFoundException(String.format("Inventory with ID %s does not exist.", inventoryId))
         );
@@ -49,7 +52,8 @@ public class VehicleDetailService {
     }
 
     public GetListOfVehiclesResponse getListOfVehiclesFromInventoryId(
-        String inventoryId, VehicleFilterRequest request
+        @NotBlank String inventoryId, 
+        VehicleFilterRequest request
     ) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getSize(), Sort.by("model").ascending());
         
@@ -64,14 +68,21 @@ public class VehicleDetailService {
         return new GetListOfVehiclesResponse(vehicleDtos);
     }
 
-    public GetVehicleResponse getVehicleFromInventoryIdAndVehicleId(String inventoryId, String vehicleId) {
+    public GetVehicleResponse getVehicleFromInventoryIdAndVehicleId(
+        @NotBlank String inventoryId, 
+        @NotBlank String vehicleId
+    ) {
         Vehicle vehicle = getAndValidateVehicle(inventoryId, vehicleId);
         VehicleDto vehicleDto = convertVehicleToVehicleDto(vehicle);
             
         return new GetVehicleResponse(vehicleDto);
     }
 
-    public VehicleDto changeVehicleStatus(String inventoryId, String vehicleId, ChangeVehicleStatusRequest request) {
+    public VehicleDto changeVehicleStatus(
+        @NotBlank String inventoryId, 
+        @NotBlank String vehicleId, 
+        ChangeVehicleStatusRequest request
+    ) {
         String status = request.getStatus();
         Vehicle vehicle = getAndValidateVehicle(inventoryId, vehicleId);
         

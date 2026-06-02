@@ -1,6 +1,7 @@
 package com.keyloop.example.inventorydashboard.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.keyloop.example.inventorydashboard.dto.GetInventoryResponse;
 import com.keyloop.example.inventorydashboard.dto.InventoryDto;
@@ -10,8 +11,10 @@ import com.keyloop.example.inventorydashboard.repository.InventoryRepository;
 import com.keyloop.example.inventorydashboard.repository.ManagerRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.constraints.NotBlank;
 
 @Service
+@Validated
 public class InventoryDetailService {
 
     private InventoryRepository inventoryRepository;
@@ -22,7 +25,10 @@ public class InventoryDetailService {
         this.managerRepository = managerRepository;
     }
 
-    public GetInventoryResponse getInventoryFromManagerIdAndInventoryId(String managerId, String inventoryId) {
+    public GetInventoryResponse getInventoryFromManagerIdAndInventoryId(
+        @NotBlank String managerId, 
+        @NotBlank String inventoryId
+    ) {
         Manager manager = managerRepository.findById(managerId).orElseThrow(
             () -> new EntityNotFoundException(
                 String.format("Manager ID %s does not exist.", managerId)));
